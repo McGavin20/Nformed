@@ -13,15 +13,19 @@ struct NewsItemView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(item.title ?? "No Title")
-                .font(.headline)
+                .font(.custom("Newsreader-VariableFont_opsz,wght", size: 18))
+                .fontWeight(.bold)
+                .foregroundStyle(.orange)
                 .lineLimit(2)
 
             HStack {
                 Text("Posted: \(formatUnixDate(item.time ?? 0))")
-                    .font(.subheadline)
+                    .font(.custom("Newsreader-Italic-VariableFont_opsz,wght", size: 12))
+                    .foregroundColor(.gray)
                 Spacer()
                 Text("Author: \(item.by ?? "Unknown")")
-                    .font(.subheadline)
+                    .font(.custom("Newsreader-Italic-VariableFont_opsz,wght", size: 12))
+                    .foregroundColor(.gray)
             }
         }
         .padding(.leading, 8)

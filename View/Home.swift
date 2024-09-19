@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Home: View {
     @StateObject var viewModel = HackerNewsViewModel()
-    @State private var selectedTab: ItemType = .news // Default to news
+    @State private var selectedTab: ItemType = .news
     
     var body: some View {
         TabView(selection: $selectedTab) {
