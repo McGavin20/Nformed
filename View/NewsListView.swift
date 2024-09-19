@@ -9,20 +9,12 @@ import SwiftUI
 
 struct NewsListView: View {
     let title: String
-    let items: [HNItem]
+    let items: [HNItem] // This would be your array of Hacker News items fetched from the API
 
     var body: some View {
         NavigationView {
             List(items) { item in
-                VStack(alignment: .leading) {
-                    Text(item.title ?? "No Title")
-                        .font(.headline)
-                    Text("By: \(item.by ?? "Unknown")")
-                        .font(.subheadline)
-                    if let score = item.score {
-                        Text("Score: \(score)")
-                    }
-                }
+                NewsItemView(item: item) // Pass the item to the NewsItemView
             }
             .navigationTitle(title)
         }

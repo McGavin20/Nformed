@@ -8,37 +8,34 @@
 import SwiftUI
 
 struct Home: View {
-    @StateObject private var viewModel = HackerNewsViewModel()
+    @StateObject var viewModel = HackerNewsViewModel()
+    @State private var selectedTab: ItemType = .news // Default to news
     
     var body: some View {
-        TabView {
-            NewsListView(title: "New Stories", items: viewModel.stories)
+        TabView(selection: $selectedTab) {
+            // News tab
+            ItemListView(items: viewModel.newsItems, itemType: .news)
                 .tabItem {
-                    Label("New", systemImage: "doc.text")
+                    Label("News", systemImage: "newspaper")
                 }
-                .onAppear {
-                    viewModel.fetchItems(for: "new")
-                }
+                .tag(ItemType.news)
             
-            NewsListView(title: "Job Posts", items: viewModel.jobs)
+            // Jobs tab
+            ItemListView(items: viewModel.jobItems, itemType: .job)
                 .tabItem {
                     Label("Jobs", systemImage: "briefcase")
                 }
-                .onAppear {
-                    viewModel.fetchItems(for: "job")
-                }
+                .tag(ItemType.job)
             
-            NewsListView(title: "Ask HN", items: viewModel.asks)
+            // Ask tab
+            ItemListView(items: viewModel.askItems, itemType: .ask)
                 .tabItem {
-                    Label("Ask HN", systemImage: "questionmark.circle")
+                    Label("Ask", systemImage: "questionmark.circle")
                 }
-                .onAppear {
-                    viewModel.fetchItems(for: "ask")
-                }
+                .tag(ItemType.ask)
+        }
+        .onAppear {
+            viewModel.fetchAllItems()
         }
     }
-}
-
-#Preview {
-    Home()
 }
